@@ -6,7 +6,7 @@ Where we explain how to install and start using ReactBundle
 Installation
 ------------
 
-First and foremost, note that you have a complete example with React, Webpack and Symfony Standard Edition at [Limenius/symfony-react-sandbox](https://github.com/Limenius/symfony-react-sandbox). Feel free to clone it, run it, experiment, and copy the pieces you need to your project. Being this bundle a fontend-oriented bundle, you are expected to have a compatible frontend setup.
+First and foremost, note that you have a complete example with React, Webpack and Symfony Standard Edition at [Limenius/symfony-react-sandbox](https://github.com/Limenius/symfony-react-sandbox) ready for you. Feel free to clone it, run it, experiment, and copy the pieces you need to your project. Being this bundle a fontend-oriented bundle, you are expected to have a compatible frontend setup.
 
 ### Step 1: Download the Bundle
 
@@ -64,7 +64,7 @@ The bundle comes with a sensible default configuration, which is listed below. I
 
 ## JavaScript and Webpack Set Up
 
-In order to use React components you need to register them in your JavaScript. This bundle makes use of the React On Rails npm package to render React Components (don't worry, you don't need to write any Ruby code ;) !).
+In order to use React components you need to register them in your JavaScript. This bundle makes use of the React On Rails npm package to render React Components (don't worry, you don't need to write any Ruby code! ;) ).
 
 Your code exposing a react component would look like this:
 
@@ -73,9 +73,9 @@ Your code exposing a react component would look like this:
     
     ReactOnRails.register({ RecipesApp });
 
-Where RecipesApp is the component we want to register.
+Where RecipesApp is the component we want to register in this example.
 
-Note that it is very likely that you will need separated entry points for your server-side and client-side components, for dealing with things like routing. This is a common issue with any universal (isomorphic) application. See the sandbox for an example of how to deal with this.
+Note that it is very likely that you will need separated entry points for your server-side and client-side components, for dealing with things like routing. This is a common issue with any universal (isomorphic) application. Again, see the sandbox for an example of how to deal with this.
 
 If you use server-side rendering, you are also expected to have a Webpack bundle for it, containing React, React on Rails and your JavaScript code that will be used to evaluate your component.
 
@@ -137,7 +137,7 @@ Note that in this case you will probably see a React warning like
 
 *"Warning: render(): Target node has markup rendered by React, but there are unrelated nodes as well. This is most commonly caused by white-space inserted around server-rendered markup."*
 
-This warning is harmlesss and will go away when you disable trace in production. It meas that when rendering the component client-side and comparing with the server-side equivalent, React has found extra characters. Those characters are your debug messages, so don't worry about it.
+This warning is harmlesss and will go away when you disable trace in production. It means that when rendering the component client-side and comparing with the server-side equivalent, React has found extra characters. Those characters are your debug messages, so don't worry about it.
 
 
 
