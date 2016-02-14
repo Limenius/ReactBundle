@@ -1,7 +1,7 @@
 Using ReactBundle
 ===================
 
-Where we explain how to install and start using ReactBundle
+*Where we explain how to install and start using ReactBundle*
 
 Installation
 ------------
