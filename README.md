@@ -12,7 +12,7 @@ Features include:
 
 # Example
 
-For a complete example, with a sensible webpack set up and a sample application to start with, check out [Symfony React Sandbox](https://github.com/Limenius/symfony-react-sandbox).
+For a complete example, with a sensible Webpack set up and a sample application to start with, check out [Symfony React Sandbox](https://github.com/Limenius/symfony-react-sandbox).
 
 # Documentation
 
