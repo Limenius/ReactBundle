@@ -3,6 +3,7 @@
 namespace Limenius\ReactBundle\Renderer;
 
 use Nacmartin\PhpExecJs\PhpExecJs;
+use Psr\Log\LoggerInterface;
 use Limenius\ReactBundle\Exception\EvalJsException;
 
 class ReactRenderer
@@ -12,7 +13,7 @@ class ReactRenderer
     protected $serverBundlePath;
     protected $failLoud;
 
-    public function __construct($logger, PhpExecJs $execJs, $serverBundlePath, $failLoud = false)
+    public function __construct(LoggerInterface $logger, PhpExecJs $execJs, $serverBundlePath, $failLoud = false)
     {
         $this->logger = $logger;
         $this->phpExecJs = $execJs;
