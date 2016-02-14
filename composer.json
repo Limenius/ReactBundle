@@ -14,14 +14,7 @@
         "psr-4": { "Limenius\\ReactBundle\\": "" }
     },
     "require": {
-        "symfony/process": "~2.7|~3.0"
-    },
-    "minimum-stability": "dev",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/nacmartin/phpexecjs"
-        }
-    ]
+        "symfony/process": "~2.7|~3.0",
+        "nacmartin/phpexecjs": "^0.8.0"
+    }
 }
-
