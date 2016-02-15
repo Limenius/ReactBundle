@@ -28,7 +28,7 @@ class ReactRenderer
 
     public function render($componentName, $propsString, $uuid, $trace)
     {
-        $serverBundle = file_get_contents($this->serverBundlePath);
+        $serverBundle = $this->loadServerBundle();
         $this->phpExecJs->createContext($this->consolePolyfill()."\n".$serverBundle);
         $result = json_decode($this->phpExecJs->evalJs($this->wrap($componentName, $propsString, $uuid, $trace)), true);
         if ($result['hasErrors']) {
@@ -38,6 +38,14 @@ class ReactRenderer
             }
         }
         return $result['html'].$result['consoleReplayScript'];
+    }
+
+    protected function loadServerBundle()
+    {
+        if (!$serverBundle = @file_get_contents($this->serverBundlePath)) {
+            throw new \RuntimeException('Server bundle not found in path: '.$this->serverBundlePath);
+        }
+        return $serverBundle;
     }
 
     protected function consolePolyfill()
