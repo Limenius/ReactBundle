@@ -56,8 +56,6 @@ The bundle comes with a sensible default configuration, which is listed below. I
             # in the JavaScript console
             # Note that if enabled it will throw a (harmless) React warning
             trace: false
-            # Location of the node binary. Defaults to the result of running `env node`
-            node_binary_path: null
             # Location of the server bundle, that contains React and React on Rails.
             # null will default to `app/Resources/webpack/server-bundle.js`
             server_bundle_path: null
