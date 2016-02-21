@@ -14,6 +14,6 @@
         "psr-4": { "Limenius\\ReactBundle\\": "" }
     },
     "require": {
-        "nacmartin/phpexecjs": "^0.8.2"
+        "nacmartin/phpexecjs": "^0.8.4"
     }
 }

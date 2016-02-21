@@ -31,12 +31,6 @@ class LimeniusReactExtension extends Extension
         $loader->load('services.xml');
         $loader->load('twig.xml');
 
-        if ($nodeBinaryPath = $config['serverside_rendering']['node_binary_path']) {
-            $container
-                ->getDefinition('limenius_react.phpexecjs')
-                ->addArgument($nodeBinaryPath)
-                ;
-        }
         if ($serverBundlePath = $config['serverside_rendering']['server_bundle_path']) {
             $container
                 ->getDefinition('limenius_react.react_renderer')
