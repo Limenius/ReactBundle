@@ -137,8 +137,7 @@ Note that in this case you will probably see a React warning like
 
 This warning is harmlesss and will go away when you disable trace in production. It means that when rendering the component client-side and comparing with the server-side equivalent, React has found extra characters. Those characters are your debug messages, so don't worry about it.
 
-Performance with Server-Side rendering
-======================================
+## Performance with Server-Side rendering
 
 Server-side rendering should be used in applications where you can cache the resulting HTML using Varnish or something similar. Otherwise, as for every request the server bundle containing React must be copied either to a file (if your runtime is node.js) or via memcpy (if you have the V8Js PHP extension enabled) and re-interpreted, this can have an overhead. Note that would be theoretically possible to precompile the server bundle in the V8Js object, but as after every request is destroyed, due to the stateless nature of most PHP applications, this is not possible in practice. Thus the components that cannot be cached are best rendered client-side.
 
