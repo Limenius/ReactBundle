@@ -119,7 +119,7 @@ Will render the component only client-side, whereas the following code
 
 Or both (default):
 
-    {{ react_component('RecipesApp', {'props': props, 'rendering': 'server-side'}) }}
+    {{ react_component('RecipesApp', {'props': props, 'rendering': 'both'}) }}
 
 You can explore these options by looking at the generated HTML code.
 
