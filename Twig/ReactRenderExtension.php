@@ -10,6 +10,7 @@ class ReactRenderExtension extends \Twig_Extension
 {
     private $renderer;
     protected $renderServerSide = false;
+    protected $registeredStores = array();
     protected $renderClientSide = false;
 
     /**
@@ -19,7 +20,7 @@ class ReactRenderExtension extends \Twig_Extension
      * @param string $defaultRendering 
      * @param boolean $trace 
      * @access public
-     * @return void
+     * @return ReactRenderExtension
      */
     public function __construct(ReactRenderer $renderer, $defaultRendering, $trace = false)
     {
@@ -61,8 +62,7 @@ class ReactRenderExtension extends \Twig_Extension
         }
         $str .= '<div id="'.$uuid.'">';
         if ($this->shouldRenderServerSide($options)) {
-
-            $serverSideStr = $this->renderer->render($componentName, $propsString, $uuid, $trace);
+            $serverSideStr = $this->renderer->render($componentName, $propsString, $uuid, $this->registeredStores, $trace);
             $str .= $serverSideStr;
         }
         $str .= '</div>';
@@ -71,6 +71,7 @@ class ReactRenderExtension extends \Twig_Extension
 
     public function reactReduxStore($storeName, $props)
     {
+        $this->registeredStores[$storeName] = $props;
         return '<div class="js-react-on-rails-store" style="display:none" data-store-name="'.$storeName.'" data-props="'.htmlspecialchars($props).'"></div>';
     }
 
