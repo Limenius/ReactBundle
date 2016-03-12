@@ -51,7 +51,7 @@ class ReactRenderExtension extends \Twig_Extension
     public function reactRenderComponent($componentName, $options = array())
     {
         $uuid = 'sfreact-'.uniqid();
-        $propsString = isset($options['props']) ? $options['props'] : '';
+        $propsString = isset($options['props']) ? $options['props'] : '{}';
         $str = '';
         $trace = $this->shouldTrace($options);
         if ($this->shouldRenderClientSide($options)) {
