@@ -11,6 +11,7 @@ class ReactRenderer
     protected $logger;
     protected $phpExecJs;
     protected $serverBundlePath;
+    protected $needToSetContext = true;
     protected $failLoud;
 
     public function __construct(LoggerInterface $logger, PhpExecJs $execJs, $serverBundlePath, $failLoud = false)
@@ -24,12 +25,16 @@ class ReactRenderer
     public function setServerBundlePath($serverBundlePath)
     {
         $this->serverBundlePath = $serverBundlePath;
+        $this->needToSetContext = true;
     }
 
     public function render($componentName, $propsString, $uuid, $trace)
     {
-        $serverBundle = $this->loadServerBundle();
-        $this->phpExecJs->createContext($this->consolePolyfill()."\n".$serverBundle);
+        if($this->needToSetContext){
+            $this->phpExecJs->createContext($this->consolePolyfill()."\n".$this->loadServerBundle());
+            $this->needToSetContext = false;
+        }
+
         $result = json_decode($this->phpExecJs->evalJs($this->wrap($componentName, $propsString, $uuid, $trace)), true);
         if ($result['hasErrors']) {
             $this->LogErrors($result['consoleReplayScript']);
