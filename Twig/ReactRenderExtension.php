@@ -10,8 +10,8 @@ class ReactRenderExtension extends \Twig_Extension
 {
     private $renderer;
     protected $renderServerSide = false;
-    protected $registeredStores = array();
     protected $renderClientSide = false;
+    protected $registeredStores = array();
 
     /**
      * Constructor
