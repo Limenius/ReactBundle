@@ -45,7 +45,9 @@ class ReactRenderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('react_component', array($this, 'reactRenderComponent'), array('is_safe' => array('html'))));
+            new \Twig_SimpleFunction('react_component', array($this, 'reactRenderComponent'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('redux_store', array($this, 'reactReduxStore'), array('is_safe' => array('html')))
+        );
     }
 
     public function reactRenderComponent($componentName, $options = array())
@@ -65,6 +67,11 @@ class ReactRenderExtension extends \Twig_Extension
         }
         $str .= '</div>';
         return $str;
+    }
+
+    public function reactReduxStore($storeName, $props)
+    {
+        return '<div class="js-react-on-rails-store" style="display:none" data-store-name="'.$storeName.'" data-props="'.htmlspecialchars($props).'"></div>';
     }
 
     public function shouldRenderServerSide($options) {
