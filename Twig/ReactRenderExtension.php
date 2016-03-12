@@ -58,7 +58,10 @@ class ReactRenderExtension extends \Twig_Extension
         $str = '';
         $trace = $this->shouldTrace($options);
         if ($this->shouldRenderClientSide($options)) {
-            $str .= '<div class="js-react-on-rails-component" style="display:none" data-component-name="'.$componentName.'" data-props="'.htmlspecialchars($propsString).'" data-trace="'.($trace ? 'true' : 'false').'" data-dom-id="'.$uuid.'"></div>';
+            $str .=  sprintf(
+                '<div class="js-react-on-rails-component" style="display:none" data-component-name="%s" data-props="%s" data-trace="%s" data-dom-id="%s"></div>',
+                $componentName, htmlspecialchars($propsString), var_export($trace, true), $uuid
+            );
         }
         $str .= '<div id="'.$uuid.'">';
         if ($this->shouldRenderServerSide($options)) {
@@ -72,7 +75,10 @@ class ReactRenderExtension extends \Twig_Extension
     public function reactReduxStore($storeName, $props)
     {
         $this->registeredStores[$storeName] = $props;
-        return '<div class="js-react-on-rails-store" style="display:none" data-store-name="'.$storeName.'" data-props="'.htmlspecialchars($props).'"></div>';
+        return sprintf(
+            '<div class="js-react-on-rails-store" style="display:none" data-store-name="%s" data-props="%s"></div>',
+            $storeName, htmlspecialchars($props)
+        );
     }
 
     public function shouldRenderServerSide($options) {
