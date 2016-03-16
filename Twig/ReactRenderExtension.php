@@ -11,6 +11,7 @@ class ReactRenderExtension extends \Twig_Extension
     private $renderer;
     protected $renderServerSide = false;
     protected $renderClientSide = false;
+    protected $registeredStores = array();
 
     /**
      * Constructor
@@ -19,7 +20,7 @@ class ReactRenderExtension extends \Twig_Extension
      * @param string $defaultRendering 
      * @param boolean $trace 
      * @access public
-     * @return void
+     * @return ReactRenderExtension
      */
     public function __construct(ReactRenderer $renderer, $defaultRendering, $trace = false)
     {
@@ -45,7 +46,9 @@ class ReactRenderExtension extends \Twig_Extension
     public function getFunctions()
     {
         return array(
-            new \Twig_SimpleFunction('react_component', array($this, 'reactRenderComponent'), array('is_safe' => array('html'))));
+            new \Twig_SimpleFunction('react_component', array($this, 'reactRenderComponent'), array('is_safe' => array('html'))),
+            new \Twig_SimpleFunction('redux_store', array($this, 'reactReduxStore'), array('is_safe' => array('html')))
+        );
     }
 
     public function reactRenderComponent($componentName, $options = array())
@@ -55,16 +58,27 @@ class ReactRenderExtension extends \Twig_Extension
         $str = '';
         $trace = $this->shouldTrace($options);
         if ($this->shouldRenderClientSide($options)) {
-            $str .= '<div class="js-react-on-rails-component" style="display:none" data-component-name="'.$componentName.'" data-props="'.htmlspecialchars($propsString).'" data-trace="'.($trace ? 'true' : 'false').'" data-dom-id="'.$uuid.'"></div>';
+            $str .=  sprintf(
+                '<div class="js-react-on-rails-component" style="display:none" data-component-name="%s" data-props="%s" data-trace="%s" data-dom-id="%s"></div>',
+                $componentName, htmlspecialchars($propsString), var_export($trace, true), $uuid
+            );
         }
         $str .= '<div id="'.$uuid.'">';
         if ($this->shouldRenderServerSide($options)) {
-
-            $serverSideStr = $this->renderer->render($componentName, $propsString, $uuid, $trace);
+            $serverSideStr = $this->renderer->render($componentName, $propsString, $uuid, $this->registeredStores, $trace);
             $str .= $serverSideStr;
         }
         $str .= '</div>';
         return $str;
+    }
+
+    public function reactReduxStore($storeName, $props)
+    {
+        $this->registeredStores[$storeName] = $props;
+        return sprintf(
+            '<div class="js-react-on-rails-store" style="display:none" data-store-name="%s" data-props="%s"></div>',
+            $storeName, htmlspecialchars($props)
+        );
     }
 
     public function shouldRenderServerSide($options) {

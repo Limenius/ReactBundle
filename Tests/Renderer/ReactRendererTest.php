@@ -26,12 +26,17 @@ class RendererTest extends \PHPUnit_Framework_TestCase
     public function testServerBundleNotFound()
     {
         $this->renderer = new ReactRenderer($this->logger, $this->phpExecJs, __DIR__.'/Fixtures/i-dont-exist.js');
-        $this->renderer->render('MyApp', 'props', 1, false);
+        $this->renderer->render('MyApp', 'props', 1, null, false);
     }
 
     public function testPlus()
     {
-        $this->assertEquals('go for it - my replay', $this->renderer->render('MyApp', 'props', 1, false));
+        $this->assertEquals('go for it - my replay', $this->renderer->render('MyApp', 'props', 1, null, false));
+    }
+
+    public function testWithStoreData()
+    {
+        $this->assertEquals('go for it - my replay', $this->renderer->render('MyApp', 'props', 1, array('Store' => '{foo:"bar"'), false));
     }
 
     /**
@@ -44,6 +49,6 @@ class RendererTest extends \PHPUnit_Framework_TestCase
         $phpExecJs->method('evalJs')
              ->willReturn('{ "html" : "go for it", "hasErrors" : true, "consoleReplayScript": " - my replay"}');
         $this->renderer = new ReactRenderer($this->logger, $phpExecJs, __DIR__.'/Fixtures/server-bundle.js', true);
-        $this->renderer->render('MyApp', 'props', 1, true);
+        $this->renderer->render('MyApp', 'props', 1, null, true);
     }
 }
