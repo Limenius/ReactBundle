@@ -54,7 +54,9 @@ class ReactRenderExtension extends \Twig_Extension
     public function reactRenderComponent($componentName, $options = array())
     {
         $uuid = 'sfreact-'.uniqid();
-        $propsString = isset($options['props']) ? $options['props'] : '{}';
+        $props = isset($options['props']) ? $options['props'] : '{}';
+        $propsString = is_array($props) ? json_encode($props) : $props;
+
         $str = '';
         $trace = $this->shouldTrace($options);
         if ($this->shouldRenderClientSide($options)) {
@@ -74,10 +76,11 @@ class ReactRenderExtension extends \Twig_Extension
 
     public function reactReduxStore($storeName, $props)
     {
-        $this->registeredStores[$storeName] = $props;
+        $propsString = is_array($props) ? json_encode($props) : $props;
+        $this->registeredStores[$storeName] = $propsString;
         return sprintf(
             '<div class="js-react-on-rails-store" style="display:none" data-store-name="%s" data-props="%s"></div>',
-            $storeName, htmlspecialchars($props)
+            $storeName, htmlspecialchars($propsString)
         );
     }
 
