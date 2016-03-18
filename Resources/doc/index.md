@@ -33,7 +33,7 @@ file of your project:
             $bundles = array(
                 // ...
 
-                new Limenius\ReactBundle(),
+                new Limenius\ReactBundle\LimeniusReactBundle(),
             );
 
             // ...
