@@ -28,11 +28,11 @@ class ReactRenderExtension extends \Twig_Extension
         $this->trace = $trace;
 
         switch ($defaultRendering) {
-        case 'only_serverside':
+        case 'server_side':
             $this->renderClientSide = false;
             $this->renderServerSide = true;
             break;
-        case 'only_clientside':
+        case 'client_side':
             $this->renderClientSide = true;
             $this->renderServerSide = false;
             break;

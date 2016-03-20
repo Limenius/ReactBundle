@@ -49,7 +49,7 @@ class AppKernel extends Kernel
 The bundle comes with a sensible default configuration, which is listed below. If you skip this step, these defaults will be used.
 
     limenius_react:
-        # Other options are "only-serverside" and "only-clientside"
+        # Other options are "server_side" and "client_side"
         default_rendering: "both"
         serverside_rendering:
             # In case of error in server-side rendering, throw exception
