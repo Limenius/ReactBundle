@@ -163,6 +163,44 @@ This warning is harmlesss and will go away when you disable trace in production.
 
 Server-side rendering should be used in applications where you can cache the resulting HTML using Varnish or something similar. Otherwise, as for every request the server bundle containing React must be copied either to a file (if your runtime is node.js) or via memcpy (if you have the V8Js PHP extension enabled) and re-interpreted, this can have an overhead. Note that would be theoretically possible to precompile the server bundle in the V8Js object, but as after every request is destroyed, due to the stateless nature of most PHP applications, this is not possible in practice. Thus the components that cannot be cached are best rendered client-side.
 
+## Redux
+
+If you're using [Redux](http://redux.js.org/) you could use the bundle to hydrate your store's:
+
+Use `redux_store` in your twig file before you render your components depending on your store:
+
+```twig
+{{ redux_store('MySharedReduxStore', initialState ) }}
+{{ react_component('RecipesApp') }}
+```
+`MySharedReduxStore` here is the identifier you're using in your javascript to get the store. The `initialState` can either be a JSON encoded string or an array. 
+
+Then, expose your store in your bundle, just like your exposed your components:
+
+```js
+import ReactOnRails from 'react-on-rails';
+import RecipesApp from './RecipesAppServer';
+import configureStore from './store/configureStore';
+
+ReactOnRails.registerStore({ configureStore });
+ReactOnRails.register({ RecipesApp });
+```
+
+Finally use `ReactOnRails.getStore` where you would have used your the object you passed into `registerStore`.
+
+```js
+// Get hydrated store
+const store = ReactOnRails.getStore('MySharedReduxStore');
+
+return (
+  <Provider store={store}>
+    <Scorecard />
+  </Provider>
+);
+```
+
+Make sure you use the same identifier here (`MySharedReduxStore`) as you used in your twig file to set up the store. 
+
 
 
 
