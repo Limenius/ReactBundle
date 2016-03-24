@@ -137,12 +137,6 @@ Or both (default):
 
 You can explore these options by looking at the generated HTML code.
 
-if you don't need to set any options you can also pass in the props directly: 
-
-```twig
-{{ react_component('RecipesApp', props) }}
-```
-
 ## Debugging
 
 One imporant point when running server-side JavaScript code from PHP is the management of debug messages thrown by `console.log`. ReactBundle, inspired React on Rails, has means to replay `console.log` messages into the JavaScript console of your browser.
