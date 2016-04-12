@@ -20,7 +20,7 @@ class Configuration implements ConfigurationInterface
         $rootNode
             ->children()
                 ->enumNode('default_rendering')
-                    ->values(array('only_serverside', 'only_clientside', 'both'))
+                    ->values(array('server_side', 'client_side', 'both'))
                     ->defaultValue('both')
                 ->end()
                 ->arrayNode('serverside_rendering')
