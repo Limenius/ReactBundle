@@ -14,12 +14,15 @@ class ReactRenderer
     protected $needToSetContext = true;
     protected $failLoud;
 
-    public function __construct(LoggerInterface $logger, PhpExecJs $execJs, $serverBundlePath, $failLoud = false)
+    public function __construct(LoggerInterface $logger, $serverBundlePath, $failLoud = false)
     {
         $this->logger = $logger;
-        $this->phpExecJs = $execJs;
         $this->serverBundlePath = $serverBundlePath;
         $this->failLoud = $failLoud;
+    }
+
+    public function setPhpExecJs(PhpExecJs $phpExecJs) {
+        $this->phpExecJs = $phpExecJs;
     }
 
     public function setServerBundlePath($serverBundlePath)
@@ -30,6 +33,7 @@ class ReactRenderer
 
     public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace)
     {
+        $this->ensurePhpExecJsIsBuilt();
         if($this->needToSetContext){
             $this->phpExecJs->createContext($this->consolePolyfill()."\n".$this->loadServerBundle());
             $this->needToSetContext = false;
@@ -117,7 +121,7 @@ JS;
         }
     }
 
-    protected function extractErrorLines($consoleReplay) 
+    protected function extractErrorLines($consoleReplay)
     {
         $report = [];
         $lines = explode("\n", $consoleReplay);
@@ -129,10 +133,18 @@ JS;
         }
         return $report;
     }
-    
+
     protected function throwError($consoleReplay, $componentName)
     {
         $report = implode("\n", $this->extractErrorLines($consoleReplay));
         throw new EvalJsException($componentName, $report);
     }
+
+    protected function ensurePhpExecJsIsBuilt()
+    {
+        if (!$this->phpExecJs) {
+            $this->phpExecJs = new PhpExecJs();
+        }
+    }
+
 }
