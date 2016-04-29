@@ -118,13 +118,13 @@ You can choose whether your React components will be rendered only client-side, 
 If you set the option `rendering` of the twig call, you can override your config (default is to render both server-side and client-side).
 
 ```twig
-{{ react_component('RecipesApp', {'props': props, 'rendering': 'client-side'}) }}
+{{ react_component('RecipesApp', {'props': props, 'rendering': 'client_side'}) }}
 ```
 
 Will render the component only client-side, whereas the following code
 
 ```twig
-{{ react_component('RecipesApp', {'props': props, 'rendering': 'server-side'}) }}
+{{ react_component('RecipesApp', {'props': props, 'rendering': 'server_side'}) }}
 ```
 
 ... will render the component only server-side (and as a result the dynamic components won't work).
