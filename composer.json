@@ -1,7 +1,7 @@
 {
     "name": "limenius/react-bundle",
     "description": "Client and Server-side react rendering in a Symfony Bundle",
-    "type": "symofny-bundle",
+    "type": "symfony-bundle",
     "keywords": ["react", "isomorphic"],
     "license": "MIT",
     "authors": [
