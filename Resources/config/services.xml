@@ -7,6 +7,7 @@
     <services>
         <service id="limenius_react.external_react_renderer" class="Limenius\ReactBundle\Renderer\ExternalServerReactRenderer">
             <argument type="service" id="logger" />
+            <argument>%kernel.root_dir%/Resources/node-server/node.sock</argument>
             <argument>%limenius_react.fail_loud%</argument>
         </service>
         <service id="limenius_react.phpexecjs_react_renderer" class="Limenius\ReactBundle\Renderer\PhpExecJsReactRenderer">

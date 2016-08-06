@@ -39,7 +39,7 @@ class Configuration implements ConfigurationInterface
                         ->scalarNode('server_bundle_path')
                             ->defaultNull()
                         ->end()
-                        ->scalarNode('node_server_location')
+                        ->scalarNode('server_socket_path')
                             ->defaultNull()
                         ->end()
                     ->end()

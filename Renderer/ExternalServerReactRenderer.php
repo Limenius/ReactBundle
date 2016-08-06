@@ -9,19 +9,24 @@ use Limenius\ReactBundle\Exception\EvalJsException;
 class ExternalServerReactRenderer extends AbstractReactRenderer
 {
     protected $logger;
-    protected $serverBundlePath;
-    protected $needToSetContext = true;
+    protected $serverSocketPath;
     protected $failLoud;
 
-    public function __construct(LoggerInterface $logger, $failLoud = false)
+    public function __construct(LoggerInterface $logger, $serverSocketPath, $failLoud = false)
     {
         $this->logger = $logger;
+        $this->serverSocketPath = $serverSocketPath;
         $this->failLoud = $failLoud;
+    }
+
+    public function setServerSocketPath($serverSocketPath)
+    {
+        $this->serverSocketPath = $serverSocketPath;
     }
 
     public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace)
     {
-        $sock = stream_socket_client('unix:///Users/nacho/Proyectos/sfreact/sandbox-dev/symfony-react-sandbox/app/Resources/node-server/node.sock', $errno, $errstr);
+        $sock = stream_socket_client('unix://'.$this->serverSocketPath, $errno, $errstr);
         fwrite($sock, $this->wrap($componentName, $propsString, $uuid, $registeredStores, $trace));
 
         $contents = '';

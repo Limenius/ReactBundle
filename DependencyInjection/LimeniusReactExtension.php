@@ -31,15 +31,27 @@ class LimeniusReactExtension extends Extension
         $loader->load('services.xml');
         $loader->load('twig.xml');
 
-        $renderer = $container->getDefinition('limenius_react.external_react_renderer');
-        $renderer = $container->getDefinition('limenius_react.phpexecjs_react_renderer');
-        $container->setDefinition('limenius_react.react_renderer', $renderer);
-
-        if ($serverBundlePath = $config['serverside_rendering']['server_bundle_path']) {
-            $container
-                ->getDefinition('limenius_react.react_renderer')
-                ->addMethodCall('setServerBundlePath', array($serverBundlePath))
-                ;
+        $serverSideEnabled = $config['default_rendering'];
+        if (in_array($serverSideEnabled, array('both', 'server_side'))) {
+            $serverSideMode = $config['serverside_rendering']['mode'];
+            if ($serverSideMode == 'external_server') {
+                if ($serverSocketPath = $config['serverside_rendering']['server_socket_path']) {
+                    $container
+                        ->getDefinition('limenius_react.external_react_renderer')
+                        ->addMethodCall('setServerSocketPath', array($serverSocketPath))
+                        ;
+                }
+                $renderer = $container->getDefinition('limenius_react.external_react_renderer');
+            } else {
+                if ($serverBundlePath = $config['serverside_rendering']['server_bundle_path']) {
+                    $container
+                        ->getDefinition('limenius_react.phpexecjs_react_renderer')
+                        ->addMethodCall('setServerBundlePath', array($serverBundlePath))
+                        ;
+                }
+                $renderer = $container->getDefinition('limenius_react.phpexecjs_react_renderer');
+            }
+            $container->setDefinition('limenius_react.react_renderer', $renderer);
 
         }
 
