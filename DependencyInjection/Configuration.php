@@ -14,9 +14,6 @@ class Configuration implements ConfigurationInterface
     {
         $treeBuilder = new TreeBuilder();
         $rootNode = $treeBuilder->root('limenius_react');
-
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('limenius_filesystem_router');
         $rootNode
             ->children()
                 ->enumNode('default_rendering')
