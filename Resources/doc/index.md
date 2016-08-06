@@ -58,9 +58,19 @@ The bundle comes with a sensible default configuration, which is listed below. I
             # in the JavaScript console
             # Note that if enabled it will throw a (harmless) React warning
             trace: false
+            # Mode can be `"phpexecjs"` (to execute Js from PHP using PhpExecJs),
+            # or `"external"` (to rely on an external node.js server)
+            # Default is `"phpexecjs"`
+            mode: "phpexecjs"
             # Location of the server bundle, that contains React and React on Rails.
-            # null will default to `app/Resources/webpack/server-bundle.js`
+            # null will default to `%kernel.root_dir%/Resources/webpack/server-bundle.js`
+            # Only used with mode `phpexecjs`
             server_bundle_path: null
+            # Only used with mode `external`
+            # Location of the unix socket to communicate with a dummy node.js server
+            # Such as the one in `Resources/node-server/server.js`
+            # null will default to `%kernel.root_dir%/Resources/node-server/node.sock
+            server_socket_path: null
 
 ## JavaScript and Webpack Set Up
 
@@ -153,9 +163,13 @@ Note that in this case you will probably see a React warning like
 
 This warning is harmlesss and will go away when you disable trace in production. It means that when rendering the component client-side and comparing with the server-side equivalent, React has found extra characters. Those characters are your debug messages, so don't worry about it.
 
-## Performance with Server-Side rendering
+## Server-Side modes
 
-Server-side rendering should be used in applications where you can cache the resulting HTML using Varnish or something similar. Otherwise, as for every request the server bundle containing React must be copied either to a file (if your runtime is node.js) or via memcpy (if you have the V8Js PHP extension enabled) and re-interpreted, this can have an overhead. Note that would be theoretically possible to precompile the server bundle in the V8Js object, but as after every request is destroyed, due to the stateless nature of most PHP applications, this is not possible in practice. Thus the components that cannot be cached are best rendered client-side.
+This bundle supports two modes of using server-side rendering:
+
+* Using [PhpExecJs](https://github.com/nacmartin/phpexecjs) to auto-detect a JavaScript environment (call node.js via terminal command or use V8Js PHP) and run JavaScript code through it. This is more friendly for development, as every time you change your code it will have effect immediatly, but it is also more slow, because for every request the server bundle containing React must be copied either to a file (if your runtime is node.js) or via memcpy (if you have the V8Js PHP extension enabled) and re-interpreted. It is more **suited for development**, or in environments where you can cache everything.
+
+* Using an external node.js server ([Example](https://github.com/Limenius/symfony-react-sandbox/tree/master/app/Resources)). It will use a dummy server, that knows nothing about your logic to render React for you. This is faster but introduces more operational complexity (you have to keep the node server running). For this reason it is more **suited for production**.
 
 ## Redux
 
@@ -195,7 +209,5 @@ return (
 
 Make sure you use the same identifier here (`MySharedReduxStore`) as you used in your twig file to set up the store. 
 
-
-
-
+You have an example in the [Sandbox](https://github.com/Limenius/symfony-react-sandbox).
 
