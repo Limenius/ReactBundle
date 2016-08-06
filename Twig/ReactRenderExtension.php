@@ -4,7 +4,7 @@ namespace Limenius\ReactBundle\Twig;
 
 use Nacmartin\PhpExecJs\PhpExecJs;
 use AppBundle\Exception\EvalJsError;
-use Limenius\ReactBundle\Renderer\ReactRenderer;
+use Limenius\ReactBundle\Renderer\AbstractReactRenderer;
 
 class ReactRenderExtension extends \Twig_Extension
 {
@@ -22,7 +22,7 @@ class ReactRenderExtension extends \Twig_Extension
      * @access public
      * @return ReactRenderExtension
      */
-    public function __construct(ReactRenderer $renderer, $defaultRendering, $trace = false)
+    public function __construct(AbstractReactRenderer $renderer, $defaultRendering, $trace = false)
     {
         $this->renderer = $renderer;
         $this->trace = $trace;
