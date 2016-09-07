@@ -68,7 +68,8 @@ The bundle comes with a sensible default configuration, which is listed below. I
             server_bundle_path: null
             # Only used with mode `external`
             # Location of the unix socket to communicate with a dummy node.js server
-            # Such as the one in `Resources/node-server/server.js`
+            # Such as the one at
+            # https://github.com/Limenius/symfony-react-sandbox/blob/master/app/Resources/node-server/server.js
             # null will default to `%kernel.root_dir%/Resources/node-server/node.sock
             server_socket_path: null
 
