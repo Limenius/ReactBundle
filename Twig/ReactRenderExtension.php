@@ -22,7 +22,7 @@ class ReactRenderExtension extends \Twig_Extension
      * @access public
      * @return ReactRenderExtension
      */
-    public function __construct(AbstractReactRenderer $renderer, $defaultRendering, $trace = false)
+    public function __construct(AbstractReactRenderer $renderer = null, $defaultRendering, $trace = false)
     {
         $this->renderer = $renderer;
         $this->trace = $trace;
