@@ -52,7 +52,11 @@ class ExternalServerReactRenderer extends AbstractReactRenderer
      */
     public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace)
     {
-        $sock = stream_socket_client('unix://'.$this->serverSocketPath, $errno, $errstr);
+        if (strpos($this->serverSocketPath, '://') === false) {
+            $this->serverSocketPath = 'unix://'.$this->serverSocketPath;
+        }
+
+        $sock = stream_socket_client($this->serverSocketPath, $errno, $errstr);
         fwrite($sock, $this->wrap($componentName, $propsString, $uuid, $registeredStores, $trace));
 
         $contents = '';

@@ -51,26 +51,33 @@ The bundle comes with a sensible default configuration, which is listed below. I
     limenius_react:
         # Other options are "server_side" and "client_side"
         default_rendering: "both"
+        
         serverside_rendering:
             # In case of error in server-side rendering, throw exception
             fail_loud: false
+            
             # Replay every console.log message produced during server-side rendering
             # in the JavaScript console
             # Note that if enabled it will throw a (harmless) React warning
             trace: false
+            
             # Mode can be `"phpexecjs"` (to execute Js from PHP using PhpExecJs),
             # or `"external"` (to rely on an external node.js server)
             # Default is `"phpexecjs"`
             mode: "phpexecjs"
+            
             # Location of the server bundle, that contains React and React on Rails.
             # null will default to `%kernel.root_dir%/Resources/webpack/server-bundle.js`
             # Only used with mode `phpexecjs`
             server_bundle_path: null
+            
             # Only used with mode `external`
-            # Location of the unix socket to communicate with a dummy node.js server
-            # Such as the one at
+            # Location of the socket to communicate with a dummy node.js server. 
+            # Socket type must be acceptable by php function stream_socket_client. Example unix://node.sock, tcp://127.0.0.1:5000  
+            # More info: http://php.net/manual/en/function.stream-socket-client.php
+            # Example of node server:
             # https://github.com/Limenius/symfony-react-sandbox/blob/master/app/Resources/node-server/server.js
-            # null will default to `%kernel.root_dir%/Resources/node-server/node.sock
+            # null will default to `unix://%kernel.root_dir%/Resources/node-server/node.sock`
             server_socket_path: null
 
 ## JavaScript and Webpack Set Up
