@@ -25,4 +25,5 @@ install:
     - composer update $COMPOSER_FLAGS
 
 script:
+    - ./vendor/bin/phpcs --standard=ruleset.xml -p
     - phpunit

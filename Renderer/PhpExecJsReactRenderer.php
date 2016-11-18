@@ -4,16 +4,39 @@ namespace Limenius\ReactBundle\Renderer;
 
 use Nacmartin\PhpExecJs\PhpExecJs;
 use Psr\Log\LoggerInterface;
-use Limenius\ReactBundle\Exception\EvalJsException;
 
+/**
+ * Class PhpExecJsReactRenderer
+ */
 class PhpExecJsReactRenderer extends AbstractReactRenderer
 {
-    protected $logger;
+    /**
+     * @var PhpExecJs
+     */
     protected $phpExecJs;
+
+    /**
+     * @var string
+     */
     protected $serverBundlePath;
+
+    /**
+     * @var bool
+     */
     protected $needToSetContext = true;
+
+    /**
+     * @var bool
+     */
     protected $failLoud;
 
+    /**
+     * PhpExecJsReactRenderer constructor.
+     *
+     * @param LoggerInterface $logger
+     * @param string          $serverBundlePath
+     * @param bool            $failLoud
+     */
     public function __construct(LoggerInterface $logger, $serverBundlePath, $failLoud = false)
     {
         $this->logger = $logger;
@@ -21,30 +44,47 @@ class PhpExecJsReactRenderer extends AbstractReactRenderer
         $this->failLoud = $failLoud;
     }
 
-    public function setPhpExecJs(PhpExecJs $phpExecJs) {
+    /**
+     * @param PhpExecJs $phpExecJs
+     */
+    public function setPhpExecJs(PhpExecJs $phpExecJs)
+    {
         $this->phpExecJs = $phpExecJs;
     }
 
+    /**
+     * @param string $serverBundlePath
+     */
     public function setServerBundlePath($serverBundlePath)
     {
         $this->serverBundlePath = $serverBundlePath;
         $this->needToSetContext = true;
     }
 
+    /**
+     * @param string $componentName
+     * @param string $propsString
+     * @param string $uuid
+     * @param array  $registeredStores
+     * @param bool   $trace
+     *
+     * @return string
+     */
     public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace)
     {
         $this->ensurePhpExecJsIsBuilt();
-        if($this->needToSetContext){
+        if ($this->needToSetContext) {
             $this->phpExecJs->createContext($this->consolePolyfill()."\n".$this->loadServerBundle());
             $this->needToSetContext = false;
         }
         $result = json_decode($this->phpExecJs->evalJs($this->wrap($componentName, $propsString, $uuid, $registeredStores, $trace)), true);
         if ($result['hasErrors']) {
-            $this->LogErrors($result['consoleReplayScript']);
+            $this->logErrors($result['consoleReplayScript']);
             if ($this->failLoud) {
                 $this->throwError($result['consoleReplayScript'], $componentName);
             }
         }
+
         return $result['html'].$result['consoleReplayScript'];
     }
 
@@ -53,6 +93,7 @@ class PhpExecJsReactRenderer extends AbstractReactRenderer
         if (!$serverBundle = @file_get_contents($this->serverBundlePath)) {
             throw new \RuntimeException('Server bundle not found in path: '.$this->serverBundlePath);
         }
+
         return $serverBundle;
     }
 

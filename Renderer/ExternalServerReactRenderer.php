@@ -2,16 +2,30 @@
 
 namespace Limenius\ReactBundle\Renderer;
 
-use Nacmartin\PhpExecJs\PhpExecJs;
 use Psr\Log\LoggerInterface;
-use Limenius\ReactBundle\Exception\EvalJsException;
 
+/**
+ * Class ExternalServerReactRenderer
+ */
 class ExternalServerReactRenderer extends AbstractReactRenderer
 {
-    protected $logger;
+    /**
+     * @var string
+     */
     protected $serverSocketPath;
+
+    /**
+     * @var bool
+     */
     protected $failLoud;
 
+    /**
+     * ExternalServerReactRenderer constructor.
+     *
+     * @param LoggerInterface $logger
+     * @param string          $serverSocketPath
+     * @param bool            $failLoud
+     */
     public function __construct(LoggerInterface $logger, $serverSocketPath, $failLoud = false)
     {
         $this->logger = $logger;
@@ -19,11 +33,23 @@ class ExternalServerReactRenderer extends AbstractReactRenderer
         $this->failLoud = $failLoud;
     }
 
+    /**
+     * @param string $serverSocketPath
+     */
     public function setServerSocketPath($serverSocketPath)
     {
         $this->serverSocketPath = $serverSocketPath;
     }
 
+    /**
+     * @param string $componentName
+     * @param string $propsString
+     * @param string $uuid
+     * @param array  $registeredStores
+     * @param bool   $trace
+     *
+     * @return string
+     */
     public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace)
     {
         $sock = stream_socket_client('unix://'.$this->serverSocketPath, $errno, $errstr);
@@ -38,11 +64,12 @@ class ExternalServerReactRenderer extends AbstractReactRenderer
 
         $result = json_decode($contents, true);
         if ($result['hasErrors']) {
-            $this->LogErrors($result['consoleReplayScript']);
+            $this->logErrors($result['consoleReplayScript']);
             if ($this->failLoud) {
                 $this->throwError($result['consoleReplayScript'], $componentName);
             }
         }
+
         return $result['html'].$result['consoleReplayScript'];
     }
 }

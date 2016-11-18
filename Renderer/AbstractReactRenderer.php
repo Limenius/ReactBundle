@@ -2,13 +2,33 @@
 
 namespace Limenius\ReactBundle\Renderer;
 
-use Psr\Log\LoggerInterface;
 use Limenius\ReactBundle\Exception\EvalJsException;
+use Psr\Log\LoggerInterface;
 
+/**
+ * Class AbstractReactRenderer
+ */
 abstract class AbstractReactRenderer
 {
+    /**
+     * @var LoggerInterface
+     */
+    protected $logger;
+
+    /**
+     * @param string $componentName
+     * @param string $propsString
+     * @param string $uuid
+     * @param array  $registeredStores
+     * @param bool   $trace
+     *
+     * @return string
+     */
     abstract public function render($componentName, $propsString, $uuid, $registeredStores = array(), $trace);
 
+    /**
+     * @return string
+     */
     protected function consolePolyfill()
     {
         $console = <<<JS
@@ -23,13 +43,19 @@ var console = { history: [] };
   };
 });
 JS;
+
         return $console;
     }
 
+    /**
+     * @param array $registeredStores
+     *
+     * @return string
+     */
     protected function initializeReduxStores($registeredStores = array())
     {
         if (!is_array($registeredStores) || empty($registeredStores)) {
-            return "";
+            return '';
         }
 
         $result = '';
@@ -45,6 +71,15 @@ JS;
         return $result;
     }
 
+    /**
+     * @param string $name
+     * @param string $propsString
+     * @param string $uuid
+     * @param array  $registeredStores
+     * @param bool   $trace
+     *
+     * @return string
+     */
     protected function wrap($name, $propsString, $uuid, $registeredStores = array(), $trace)
     {
         $traceStr = $trace ? 'true' : 'false';
@@ -62,6 +97,7 @@ JS;
   });
 })()
 JS;
+
         return $wrapperJs;
     }
 
@@ -79,10 +115,11 @@ JS;
         $lines = explode("\n", $consoleReplay);
         $usefulLines = array_slice($lines, 2, count($lines) - 4);
         foreach ($usefulLines as $line) {
-            if (preg_match ('/console\.error\.apply\(console, \["\[SERVER\] (?P<msg>.*)"\]\);/' , $line, $matches)) {
+            if (preg_match('/console\.error\.apply\(console, \["\[SERVER\] (?P<msg>.*)"\]\);/', $line, $matches)) {
                 $report[] = $matches['msg'];
             }
         }
+
         return $report;
     }
 

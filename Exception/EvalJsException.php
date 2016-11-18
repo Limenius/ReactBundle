@@ -2,10 +2,20 @@
 
 namespace Limenius\ReactBundle\Exception;
 
+/**
+ * Class EvalJsException
+ */
 class EvalJsException extends \RuntimeException
 {
-    public function __construct($componentName, $consoleReplay) {
+    /**
+     * EvalJsException constructor.
+     *
+     * @param string $componentName
+     * @param int    $consoleReplay
+     */
+    public function __construct($componentName, $consoleReplay)
+    {
         $message = 'Error rendering component '.$componentName."\nConsole log:".$consoleReplay;
-        return parent::__construct($message);
+        parent::__construct($message);
     }
 }
