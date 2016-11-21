@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ruleset name="ReactBundle">
+    <description>ReactBundle coding standard.</description>
+
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>Resources/</exclude-pattern>
+
+    <rule ref="vendor/escapestudios/symfony2-coding-standard/Symfony2"/>
+    <rule ref="vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility" />
+
+    <config name="testVersion" value="5.5-7.0"/>
+
+    <rule ref="PEAR.Functions.ValidDefaultValue.NotAtEnd">
+        <severity>0</severity>
+    </rule>
+
+    <arg value="p"/>
+    <arg name="colors"/>
+    <arg name="encoding" value="utf-8"/>
+    <arg name="extensions" value="php"/>
+
+    <file>./</file>
+</ruleset>

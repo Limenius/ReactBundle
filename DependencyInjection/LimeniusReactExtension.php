@@ -32,9 +32,9 @@ class LimeniusReactExtension extends Extension
         $loader->load('twig.xml');
 
         $serverSideEnabled = $config['default_rendering'];
-        if (in_array($serverSideEnabled, array('both', 'server_side'))) {
+        if (in_array($serverSideEnabled, array('both', 'server_side'), true)) {
             $serverSideMode = $config['serverside_rendering']['mode'];
-            if ($serverSideMode == 'external_server') {
+            if ($serverSideMode === 'external_server') {
                 if ($serverSocketPath = $config['serverside_rendering']['server_socket_path']) {
                     $container
                         ->getDefinition('limenius_react.external_react_renderer')
@@ -52,8 +52,6 @@ class LimeniusReactExtension extends Extension
                 $renderer = $container->getDefinition('limenius_react.phpexecjs_react_renderer');
             }
             $container->setDefinition('limenius_react.react_renderer', $renderer);
-
         }
-
     }
 }

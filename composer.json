@@ -14,6 +14,27 @@
         "psr-4": { "Limenius\\ReactBundle\\": "" }
     },
     "require": {
-        "nacmartin/phpexecjs": "^0.8"
+        "php": ">=5.5.0",
+        "nacmartin/phpexecjs": "^0.8",
+        "symfony/config": "^2.7.0|^3.0.6",
+        "symfony/http-kernel": "^2.7.0|^3.0.6",
+        "symfony/dependency-injection": "^2.7.0|^3.0.6",
+        "twig/twig": "^1.20"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^2.5",
+        "escapestudios/symfony2-coding-standard": "^2.9",
+        "wimg/php-compatibility": "^7.0"
+    },
+    "scripts": {
+        "default-scripts": [
+            "rm -rf vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility; cp -rp vendor/wimg/php-compatibility vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility"
+        ],
+        "post-install-cmd": [
+            "@default-scripts"
+        ],
+        "post-update-cmd": [
+            "@default-scripts"
+        ]
     }
 }
