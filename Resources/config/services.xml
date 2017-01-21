@@ -5,12 +5,12 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="limenius_react.external_react_renderer" class="Limenius\ReactBundle\Renderer\ExternalServerReactRenderer">
+        <service id="limenius_react.external_react_renderer" class="Limenius\ReactRenderer\Renderer\ExternalServerReactRenderer">
             <argument type="service" id="logger" />
             <argument>unix://%kernel.root_dir%/Resources/node-server/node.sock</argument>
             <argument>%limenius_react.fail_loud%</argument>
         </service>
-        <service id="limenius_react.phpexecjs_react_renderer" class="Limenius\ReactBundle\Renderer\PhpExecJsReactRenderer">
+        <service id="limenius_react.phpexecjs_react_renderer" class="Limenius\ReactRenderer\Renderer\PhpExecJsReactRenderer">
             <argument type="service" id="logger" />
             <argument>%kernel.root_dir%/Resources/webpack/server-bundle.js</argument>
             <argument>%limenius_react.fail_loud%</argument>

@@ -5,7 +5,7 @@
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
     <services>
-        <service id="limenius_react.render_extension" class="Limenius\ReactBundle\Twig\ReactRenderExtension">
+        <service id="limenius_react.render_extension" class="Limenius\ReactRenderer\Twig\ReactRenderExtension">
             <argument type="service" id="limenius_react.react_renderer" on-invalid="null"/>
             <argument>%limenius_react.default_rendering%</argument>
             <argument>%limenius_react.trace%</argument>
