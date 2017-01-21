@@ -6,14 +6,14 @@
 
     <services>
         <service id="limenius_react.external_react_renderer" class="Limenius\ReactRenderer\Renderer\ExternalServerReactRenderer">
-            <argument type="service" id="logger" />
             <argument>unix://%kernel.root_dir%/Resources/node-server/node.sock</argument>
             <argument>%limenius_react.fail_loud%</argument>
+            <argument type="service" id="logger" />
         </service>
         <service id="limenius_react.phpexecjs_react_renderer" class="Limenius\ReactRenderer\Renderer\PhpExecJsReactRenderer">
-            <argument type="service" id="logger" />
             <argument>%kernel.root_dir%/Resources/webpack/server-bundle.js</argument>
             <argument>%limenius_react.fail_loud%</argument>
+            <argument type="service" id="logger" />
         </service>
     </services>
 </container>
