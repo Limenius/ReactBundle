@@ -4,7 +4,7 @@ ReactBundle lets you implement React.js client and server-side rendering in your
 
 Features include:
 
-* Prerrender server-side React components for SEO, faster page loading, and users that have disabled JavaScript.
+* Prerender server-side React components for SEO, faster page loading, and users that have disabled JavaScript.
 * Twig integration.
 * Client-side render will take the server-side rendered DOM, recognize it, and take control over it without rendering again the component until needed.
 * Error and debug management for server and client side code.
