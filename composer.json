@@ -19,8 +19,7 @@
         "symfony/config": "^2.7.0|^3.0.6",
         "symfony/http-kernel": "^2.7.0|^3.0.6",
         "symfony/dependency-injection": "^2.7.0|^3.0.6",
-        "twig/twig": "^1.20",
-        "limenius/react-renderer": "^0.11"
+        "limenius/react-renderer": "dev-dev"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^2.5",
@@ -37,5 +36,6 @@
         "post-update-cmd": [
             "@default-scripts"
         ]
-    }
+    },
+    "minimum-stability": "dev"
 }
