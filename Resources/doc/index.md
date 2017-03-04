@@ -157,7 +157,7 @@ You can explore these options by looking at the generated HTML code.
 
 ## Debugging
 
-One imporant point when running server-side JavaScript code from PHP is the management of debug messages thrown by `console.log`. ReactBundle, inspired React on Rails, has means to replay `console.log` messages into the JavaScript console of your browser.
+One important point when running server-side JavaScript code from PHP is the management of debug messages thrown by `console.log`. ReactBundle, inspired React on Rails, has means to replay `console.log` messages into the JavaScript console of your browser.
 
 To enable tracing, you can set a config parameter, as stated above, or you can set it in your template in this way:
 
