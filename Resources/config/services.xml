@@ -4,13 +4,18 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="limenius_react.external_react_renderer.class">Limenius\ReactRenderer\Renderer\ExternalServerReactRenderer</parameter>
+        <parameter key="limenius_react.phpexecjs_react_renderer.class">Limenius\ReactRenderer\Renderer\PhpExecJsReactRenderer</parameter>
+    </parameters>
+
     <services>
-        <service id="limenius_react.external_react_renderer" class="Limenius\ReactRenderer\Renderer\ExternalServerReactRenderer">
+        <service id="limenius_react.external_react_renderer" class="%limenius_react.external_react_renderer.class%">
             <argument>unix://%kernel.root_dir%/Resources/node-server/node.sock</argument>
             <argument>%limenius_react.fail_loud%</argument>
             <argument type="service" id="logger" />
         </service>
-        <service id="limenius_react.phpexecjs_react_renderer" class="Limenius\ReactRenderer\Renderer\PhpExecJsReactRenderer">
+        <service id="limenius_react.phpexecjs_react_renderer" class="%limenius_react.phpexecjs_react_renderer.class%">
             <argument>%kernel.root_dir%/Resources/webpack/server-bundle.js</argument>
             <argument>%limenius_react.fail_loud%</argument>
             <argument type="service" id="logger" />
