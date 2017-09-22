@@ -2,6 +2,8 @@
 
 ReactBundle integrates [ReactRenderer](https://github.com/Limenius/ReactRenderer) with Symfony. This lets you implement React.js client and server-side rendering in your Symfony projects, allowing the development of universal (isomorphic) applications.
 
+**Note**: If you are new to React.js, please note that this bundle is not by any means required to use React with Symfony. This allows you to do some advanced features such as Server Side Rendering, or injecting components directly from Twig tags.
+
 If you wish to use ReactRenderer with Silex, check out @teameh [Silex React Renderer Service Provider](https://github.com/teameh/silex-react-renderer-provider).
 
 Features include:
