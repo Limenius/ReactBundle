@@ -4,8 +4,12 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
 
+    <parameters>
+        <parameter key="limenius_react.render_extension.class">Limenius\ReactRenderer\Twig\ReactRenderExtension</parameter>
+    </parameters>
+
     <services>
-        <service id="limenius_react.render_extension" class="Limenius\ReactRenderer\Twig\ReactRenderExtension">
+        <service id="limenius_react.render_extension" class="%limenius_react.render_extension.class%">
             <argument type="service" id="limenius_react.react_renderer" on-invalid="null"/>
             <argument type="service" id="limenius_react.context_provider" />
             <argument>%limenius_react.default_rendering%</argument>
