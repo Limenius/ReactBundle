@@ -36,5 +36,5 @@
         "post-update-cmd": [
             "@default-scripts"
         ]
-    },
+    }
 }
