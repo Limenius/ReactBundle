@@ -19,7 +19,7 @@
         "symfony/config": "^2.7.0|^3.0.6|^4.0",
         "symfony/http-kernel": "^2.7.0|^3.0.6|^4.0",
         "symfony/dependency-injection": "^2.7.0|^3.0.6|^4.0",
-        "limenius/react-renderer": "^0.14.0"
+        "limenius/react-renderer": "^1.0"
     },
     "require-dev": {
         "squizlabs/php_codesniffer": "^2.5",
