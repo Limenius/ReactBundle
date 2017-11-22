@@ -15,7 +15,6 @@
     },
     "require": {
         "php": ">=5.5.0",
-        "nacmartin/phpexecjs": "^0.8",
         "symfony/config": "^2.7.0|^3.0.6|^4.0",
         "symfony/http-kernel": "^2.7.0|^3.0.6|^4.0",
         "symfony/dependency-injection": "^2.7.0|^3.0.6|^4.0",
