@@ -6,6 +6,7 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
+use App\DependencyInjection\Compiler\CacheCompilerPass;
 
 /**
  * This is the class that loads and manages your bundle configuration.
@@ -52,6 +53,12 @@ class LimeniusReactExtension extends Extension
                 $renderer = $container->getDefinition('limenius_react.phpexecjs_react_renderer');
             }
             $container->setDefinition('limenius_react.react_renderer', $renderer);
+        }
+
+        $cache = $config['serverside_rendering']['cache'];
+        $container->setParameter('limenius_react.cache_enabled', $cache['enabled']);
+        if ($cache['enabled']) {
+            $container->setParameter('limenius_react.cache_key', $cache['key']);
         }
     }
 }
