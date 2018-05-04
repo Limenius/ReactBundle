@@ -82,7 +82,8 @@ The bundle comes with a sensible default configuration, which is listed below. I
 
             cache:
                 enabled: false
-                key: app
+                # name of your app, it is the key of the cache where the snapshot will be stored.
+                key: "app"
 ```
 
 ## JavaScript and Webpack Set Up
