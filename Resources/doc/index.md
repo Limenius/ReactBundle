@@ -89,7 +89,7 @@ The bundle comes with a sensible default configuration, which is listed below. I
 
 In order to use React components you need to register them in your JavaScript. This bundle makes use of the React On Rails npm package to render React Components (don't worry, you don't need to write any Ruby code! ;) ).
 
-```
+```bash
 npm install react-on-rails
 ```
 
