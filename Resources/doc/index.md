@@ -223,3 +223,52 @@ Make sure you use the same identifier here (`MySharedReduxStore`) as you used in
 
 You have an example in the [Sandbox](https://github.com/Limenius/symfony-react-sandbox).
 
+
+## Using asset versioning
+
+If you are using [webpack encore](https://github.com/symfony/webpack-encore) you may be using assets versioning using a [json manifest file](https://symfony.com/blog/new-in-symfony-3-3-manifest-based-asset-versioning).
+In this case, having to change your configuration is very bothersome and should be done automatically using your `manifest.json` file. This is how to do it:
+
+### Create a custom renderer
+
+```php
+<?php
+
+namespace App\Renderer;
+
+use Limenius\ReactRenderer\Renderer\PhpExecJsReactRenderer;
+use Symfony\Component\Asset\Packages;
+
+class CustomPhpExecJsReactRenderer extends PhpExecJsReactRenderer
+{
+    /**
+     * @param Packages $packages
+     * @param string   $serverBundlePath
+     */
+    public function setPackage(Packages $packages, string $serverBundlePath)
+    {
+        $this->serverBundlePath .= $packages->getUrl($serverBundlePath);
+    }
+}
+```
+
+### Update your services configuration to override the default service
+
+```yaml
+services:
+    limenius_react.react_renderer:
+        class: App\Renderer\CustomPhpExecJsReactRenderer
+        arguments:
+            - '%kernel.project_dir%/public' # here you set the base path
+            - '%limenius_react.fail_loud%'
+            - '@limenius_react.context_provider'
+            - '@logger'
+        calls:
+            - [setPackage, ['@assets.packages', 'build/js/server-bundle.js']]
+```
+
+Some things to keep in mind:
+
+- the value `build/js/server-bundle.js` is the same path you would use for an assets render in twig
+- the `server_bundle_path` configuration becomes useless after this manipulation
+- this does not consider the behavior with a node server rendering
