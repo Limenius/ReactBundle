@@ -47,32 +47,32 @@ class AppKernel extends Kernel
 ### Step 3: (optional) Configure the bundle
 
 The bundle comes with a sensible default configuration, which is listed below. If you skip this step, these defaults will be used.
-
+```yaml
     limenius_react:
         # Other options are "server_side" and "client_side"
         default_rendering: "both"
-        
+
         serverside_rendering:
             # In case of error in server-side rendering, throw exception
             fail_loud: false
-            
+
             # Replay every console.log message produced during server-side rendering
             # in the JavaScript console
             # Note that if enabled it will throw a (harmless) React warning
             trace: false
-            
+
             # Mode can be `"phpexecjs"` (to execute Js from PHP using PhpExecJs),
             # or `"external"` (to rely on an external node.js server)
             # Default is `"phpexecjs"`
             mode: "phpexecjs"
-            
+
             # Location of the server bundle, that contains React and React on Rails.
             # null will default to `%kernel.root_dir%/Resources/webpack/server-bundle.js`
             # Only used with mode `phpexecjs`
             server_bundle_path: null
-            
+
             # Only used with mode `external`
-            # Location of the socket to communicate with a dummy node.js server. 
+            # Location of the socket to communicate with a dummy node.js server.
             # Socket type must be acceptable by php function stream_socket_client. Example unix://node.sock, tcp://127.0.0.1:5000  
             # More info: http://php.net/manual/en/function.stream-socket-client.php
             # Example of node server:
@@ -80,11 +80,17 @@ The bundle comes with a sensible default configuration, which is listed below. I
             # null will default to `unix://%kernel.root_dir%/Resources/node-server/node.sock`
             server_socket_path: null
 
+            cache:
+                enabled: false
+                # name of your app, it is the key of the cache where the snapshot will be stored.
+                key: "app"
+```
+
 ## JavaScript and Webpack Set Up
 
 In order to use React components you need to register them in your JavaScript. This bundle makes use of the React On Rails npm package to render React Components (don't worry, you don't need to write any Ruby code! ;) ).
 
-```
+```bash
 npm install react-on-rails
 ```
 
@@ -115,7 +121,7 @@ You can insert React components in your Twig templates with:
 {{ react_component('RecipesApp', {'props': props}) }}
 ```
 
-Where `RecipesApp` is, in this case, the name of our component, and `props` are the props for your component. Props can either be a JSON encoded string or an array. 
+Where `RecipesApp` is, in this case, the name of our component, and `props` are the props for your component. Props can either be a JSON encoded string or an array.
 
 For instance, a controller action that will produce a valid props could be:
 
@@ -193,7 +199,7 @@ Use `redux_store` in your twig file before you render your components depending 
 {{ redux_store('MySharedReduxStore', initialState ) }}
 {{ react_component('RecipesApp') }}
 ```
-`MySharedReduxStore` here is the identifier you're using in your javascript to get the store. The `initialState` can either be a JSON encoded string or an array. 
+`MySharedReduxStore` here is the identifier you're using in your javascript to get the store. The `initialState` can either be a JSON encoded string or an array.
 
 Then, expose your store in your bundle, just like your exposed your components:
 
@@ -219,10 +225,9 @@ return (
 );
 ```
 
-Make sure you use the same identifier here (`MySharedReduxStore`) as you used in your twig file to set up the store. 
+Make sure you use the same identifier here (`MySharedReduxStore`) as you used in your twig file to set up the store.
 
 You have an example in the [Sandbox](https://github.com/Limenius/symfony-react-sandbox).
-
 
 ## Using asset versioning
 
