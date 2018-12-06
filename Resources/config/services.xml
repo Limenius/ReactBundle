@@ -16,7 +16,7 @@
             <argument type="service" id="request_stack" />
         </service>
         <service id="limenius_react.external_react_renderer" class="%limenius_react.external_react_renderer.class%">
-            <argument>unix://%kernel.project%/var/node.sock</argument>
+            <argument>unix://%kernel.project_dir%/var/node.sock</argument>
             <argument>%limenius_react.fail_loud%</argument>
             <argument type="service" id="limenius_react.context_provider" />
             <argument type="service" id="logger" />
