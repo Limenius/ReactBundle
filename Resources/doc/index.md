@@ -77,7 +77,7 @@ The bundle comes with a sensible default configuration, which is listed below. I
             # More info: http://php.net/manual/en/function.stream-socket-client.php
             # Example of node server:
             # https://github.com/Limenius/symfony-react-sandbox/blob/master/app/Resources/node-server/server.js
-            # null will default to `unix://%kernel.root_dir%/Resources/node-server/node.sock`
+            # null will default to `unix://%kernel.project_dir%/var/node.sock`
             server_socket_path: null
 
             cache:
