@@ -19,8 +19,5 @@ class CacheCompilerPass implements CompilerPassInterface
         $renderer = $container
             ->getDefinition('limenius_react.phpexecjs_react_renderer')
             ->addMethodCall('setCache', [$appCache, $key]);
-
-        $container->getDefinition('limenius_react.static_react_renderer')
-            ->addMethodCall('setCache', [$appCache, $key]);
     }
 }
