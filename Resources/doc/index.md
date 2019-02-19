@@ -212,7 +212,7 @@ ReactOnRails.registerStore({ configureStore });
 ReactOnRails.register({ RecipesApp });
 ```
 
-Finally use `ReactOnRails.getStore` where you would have used your the object you passed into `registerStore`.
+Finally use `ReactOnRails.getStore` where you would have used the object you passed into `registerStore`.
 
 ```js
 // Get hydrated store
