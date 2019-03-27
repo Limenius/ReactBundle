@@ -4,6 +4,7 @@ namespace Limenius\ReactBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
+use Symfony\Component\HttpKernel\Kernel;
 
 /**
  * Class Configuration
@@ -15,8 +16,14 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('limenius_react');
+        if (Kernel::VERSION_ID >= 40200) {
+            $treeBuilder = new TreeBuilder('limenius_react');
+            $node = $treeBuilder->getRootNode();
+        } else {
+            $treeBuilder = new TreeBuilder();
+            $node = $treeBuilder->root('limenius_react');
+        }
+        
         $rootNode
             ->children()
                 ->enumNode('default_rendering')
