@@ -18,10 +18,10 @@ class Configuration implements ConfigurationInterface
     {
         if (Kernel::VERSION_ID >= 40200) {
             $treeBuilder = new TreeBuilder('limenius_react');
-            $node = $treeBuilder->getRootNode();
+            $rootNode = $treeBuilder->getRootNode();
         } else {
             $treeBuilder = new TreeBuilder();
-            $node = $treeBuilder->root('limenius_react');
+            $rootNode = $treeBuilder->root('limenius_react');
         }
         
         $rootNode
