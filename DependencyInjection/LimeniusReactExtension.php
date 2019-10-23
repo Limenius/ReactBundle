@@ -6,12 +6,11 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
 use Symfony\Component\DependencyInjection\Loader;
-use App\DependencyInjection\Compiler\CacheCompilerPass;
 
 /**
  * This is the class that loads and manages your bundle configuration.
  *
- * @link http://symfony.com/doc/current/cookbook/bundles/extension.html
+ * @see http://symfony.com/doc/current/cookbook/bundles/extension.html
  */
 class LimeniusReactExtension extends Extension
 {
@@ -22,7 +21,6 @@ class LimeniusReactExtension extends Extension
     {
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
-
 
         $container->setParameter('limenius_react.default_rendering', $config['default_rendering']);
         $container->setParameter('limenius_react.fail_loud', $config['serverside_rendering']['fail_loud']);
