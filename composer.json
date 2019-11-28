@@ -1,5 +1,5 @@
 {
-    "name": "limenius/react-bundle",
+    "name": "mkuhles/react-bundle",
     "description": "Client and Server-side react rendering in a Symfony Bundle",
     "type": "symfony-bundle",
     "keywords": ["react", "isomorphic"],
