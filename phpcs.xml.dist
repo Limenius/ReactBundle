@@ -5,10 +5,10 @@
     <exclude-pattern>vendor/</exclude-pattern>
     <exclude-pattern>Resources/</exclude-pattern>
 
-    <rule ref="vendor/escapestudios/symfony2-coding-standard/Symfony2"/>
-    <rule ref="vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility" />
+    <rule ref="Symfony2"/>
+    <rule ref="PHPCompatibility"/>
 
-    <config name="testVersion" value="5.5-7.0"/>
+    <config name="testVersion" value="5.5-"/>
 
     <rule ref="PEAR.Functions.ValidDefaultValue.NotAtEnd">
         <severity>0</severity>
