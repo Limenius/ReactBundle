@@ -15,8 +15,8 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('limenius_react');
+        $treeBuilder = new TreeBuilder('limenius_react');
+        $rootNode = $treeBuilder->getRootNode();
         $rootNode
             ->children()
                 ->enumNode('default_rendering')
