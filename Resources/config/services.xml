@@ -21,7 +21,7 @@
             <argument type="service" id="logger" />
         </service>
         <service id="limenius_react.phpexecjs_react_renderer" class="%limenius_react.phpexecjs_react_renderer.class%">
-            <argument>%kernel.root_dir%/Resources/webpack/server-bundle.js</argument>
+            <argument>%kernel.project_dir%/var/webpack/server-bundle.js</argument>
             <argument>%limenius_react.fail_loud%</argument>
             <argument type="service" id="limenius_react.context_provider" />
             <argument type="service" id="logger" />
