@@ -76,7 +76,7 @@ The bundle comes with a sensible default configuration, which is listed below. I
             # Socket type must be acceptable by php function stream_socket_client. Example unix://node.sock, tcp://127.0.0.1:5000  
             # More info: http://php.net/manual/en/function.stream-socket-client.php
             # Example of node server:
-            # https://github.com/Limenius/symfony-react-sandbox/blob/master/app/Resources/node-server/server.js
+            # https://github.com/Limenius/symfony-react-sandbox/blob/master/external-server.js
             # null will default to `unix://%kernel.project_dir%/var/node.sock`
             server_socket_path: null
 
@@ -187,7 +187,7 @@ This bundle supports two modes of using server-side rendering:
 
 * Using [PhpExecJs](https://github.com/nacmartin/phpexecjs) to auto-detect a JavaScript environment (call node.js via terminal command or use V8Js PHP) and run JavaScript code through it. This is more friendly for development, as every time you change your code it will have effect immediatly, but it is also more slow, because for every request the server bundle containing React must be copied either to a file (if your runtime is node.js) or via memcpy (if you have the V8Js PHP extension enabled) and re-interpreted. It is more **suited for development**, or in environments where you can cache everything.
 
-* Using an external node.js server ([Example](https://github.com/Limenius/symfony-react-sandbox/tree/master/app/Resources/node-server/server.js)). It will use a dummy server, that knows nothing about your logic to render React for you. This is faster but introduces more operational complexity (you have to keep the node server running). For this reason it is more **suited for production**.
+* Using an external node.js server ([Example](https://github.com/Limenius/symfony-react-sandbox/blob/master/external-server.js)). It will use a dummy server, that knows nothing about your logic to render React for you. This is faster but introduces more operational complexity (you have to keep the node server running). For this reason it is more **suited for production**.
 
 ## Redux
 
