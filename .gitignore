@@ -1,3 +1,6 @@
 composer.lock
 vendor/*
 studio.json
+.phpunit.cache/
+.phpunit.result.cache
+.idea/*

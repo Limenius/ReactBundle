@@ -11,30 +11,24 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Limenius\\ReactBundle\\": "" }
+        "psr-4": { "Limenius\\ReactBundle\\": "" },
+        "exclude-from-classmap": ["/Tests/"]
+    },
+    "autoload-dev": {
+        "psr-4": { "Limenius\\ReactBundle\\Tests\\": "Tests/" }
     },
     "require": {
-        "php": ">=5.5.0",
-        "symfony/config": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0",
-        "symfony/http-kernel": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0",
-        "symfony/dependency-injection": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0",
+        "php": ">=7.2",
+        "symfony/config": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0|^7.0",
+        "symfony/http-kernel": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0|^7.0",
+        "symfony/dependency-injection": "^2.7.0|^3.0.6|^4.0|^5.0|^6.0|^7.0",
         "limenius/react-renderer": "^5.0.0"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "^2.5",
-        "escapestudios/symfony2-coding-standard": "^2.9",
-        "wimg/php-compatibility": "^7.0"
+        "phpunit/phpunit": "^9.6|^10.5",
+        "symfony/framework-bundle": "^5.4|^6.4|^7.0",
+        "symfony/twig-bundle": "^5.4|^6.4|^7.0"
     },
-    "scripts": {
-        "default-scripts": [
-            "rm -rf vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility; cp -rp vendor/wimg/php-compatibility vendor/squizlabs/php_codesniffer/CodeSniffer/Standards/PHPCompatibility"
-        ],
-        "post-install-cmd": [
-            "@default-scripts"
-        ],
-        "post-update-cmd": [
-            "@default-scripts"
-        ]
-    },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

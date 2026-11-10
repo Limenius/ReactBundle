@@ -1,0 +1,42 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+jobs:
+  tests:
+    name: PHP ${{ matrix.php }} / Symfony ${{ matrix.symfony }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        php: ['8.1', '8.2', '8.3', '8.4']
+        symfony: ['5.4.*', '6.4.*', '7.*']
+        exclude:
+          - php: '8.1'
+            symfony: '7.*'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Pin Symfony version
+        run: >
+          composer require --dev --no-update
+          symfony/framework-bundle:${{ matrix.symfony }}
+          symfony/twig-bundle:${{ matrix.symfony }}
+          symfony/http-kernel:${{ matrix.symfony }}
+          symfony/config:${{ matrix.symfony }}
+          symfony/dependency-injection:${{ matrix.symfony }}
+
+      - name: Install dependencies
+        run: composer update --prefer-dist --no-progress
+
+      - name: Run tests
+        run: vendor/bin/phpunit
