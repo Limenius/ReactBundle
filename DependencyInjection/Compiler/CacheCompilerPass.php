@@ -9,7 +9,7 @@ class CacheCompilerPass implements CompilerPassInterface
 {
     private $key;
 
-    public function process(ContainerBuilder $container)
+    public function process(ContainerBuilder $container): void
     {
         if (!$container->getParameter('limenius_react.cache_enabled')) {
             return;
